@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>管理切换多个Git账号 | WindomZ`s GitHub Pages</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">WindomZ`s GitHub Pages</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about.html" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>管理切换多个Git账号</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-03-01</div><div class="post-tags"><a class="post-tag-link" href="/tags/Git/">Git</a></div></div></div><article><div class="container post"><p>如何简单快捷在电脑管理和切换不同Git账号，诸如GitHub，GitLab等</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol>
+<li><p>安装<a href="https://git-scm.com/downloads" target="_blank" rel="external">git</a>，完成后<code>Windows</code>系统通过<code>git-bash</code>启动终端，<br><code>Mac OS X</code>和<code>Linux</code>直接打开终端即可。</p>
+</li>
+<li><p>拥有至少两个GitHub账号，例如有两个账号：<code>master</code>和<code>guest</code>。(下面内容均以GitHub账号为例)</p>
+</li>
+<li><p>取消git全局设置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global --<span class="built_in">unset</span> user.name</div><div class="line">git config --global --<span class="built_in">unset</span> user.email</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="SSH-key配置"><a href="#SSH-key配置" class="headerlink" title="SSH key配置"></a>SSH key配置</h2><ul>
+<li><a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/" target="_blank" rel="external">参考文档</a></li>
+</ul>
+<ol>
+<li><p>生成RSA公私秘钥</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">"master_email@example.com"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>出现下列提示，可以输入秘钥的文件名（默认为<code>id_rsa</code>）</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]</div></pre></td></tr></table></figure>
+<p> 例如<code>master</code>账号，可以输入<code>id_rsa_master</code></p>
+</li>
+<li><p>出现下列提示，是否需要绑定密码，可以选择不输入，即直接<code>ENTER</code></p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty for no passphrase): [Type a passphrase]</div><div class="line">Enter same passphrase again: [Type passphrase again]</div></pre></td></tr></table></figure>
+</li>
+<li><p>完成后在<code>~/.ssh/</code>目录就会生成私钥<code>id_rsa_master</code>和公钥<code>id_rsa_master.pub</code></p>
+</li>
+<li><p>添加SSH key</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add ~/.ssh/id_rsa_master</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过下面命令，查看SSH key的设置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add -l</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>guest</code>账号的配置同上，得到私钥<code>id_rsa_guest</code>和公钥<code>id_rsa_guest.pub</code></p>
+</li>
+</ol>
+<h2 id="GitHub账号配置"><a href="#GitHub账号配置" class="headerlink" title="GitHub账号配置"></a>GitHub账号配置</h2><ul>
+<li><a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/" target="_blank" rel="external">参考文档</a></li>
+</ul>
+<ol>
+<li><p>登录<code>master</code>账号，在<code>Settings -&gt; SSH and GPG keys</code>里，点击<code>New SSH key</code></p>
+</li>
+<li><p>在<code>&quot;Title&quot;</code>输入你要命名的名称，方便今后识别</p>
+</li>
+<li><p>将公钥(<code>id_rsa_master.pub</code>)中的内容粘贴到<code>&quot;Key&quot;</code>中，可以通过下面命令打印内容</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat ~/.ssh/id_rsa_master.pub</div></pre></td></tr></table></figure>
+</li>
+<li><p>点击<code>Add SSH key</code>按钮完成添加</p>
+</li>
+<li><p><code>guest</code>账号的配置同上</p>
+</li>
+</ol>
+<h2 id="SSH-config配置"><a href="#SSH-config配置" class="headerlink" title="SSH config配置"></a>SSH config配置</h2><ol>
+<li><p>创建<code>config</code>文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/.ssh/</div><div class="line">touch config</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开该<code>config</code>文件，写入以下内容保存:</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="section"># master(default)</span></div><div class="line">Host github.com</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id<span class="emphasis">_rsa_</span>master</div><div class="line"></div><div class="line"><span class="section"># guest</span></div><div class="line">Host guest.github.com  # 这个可以任意设置</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id<span class="emphasis">_rsa_</span>guest</div></pre></td></tr></table></figure>
+</li>
+<li><p>这里要说明下，今后相对应的SSH路径如下: </p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="section"># master(default)</span></div><div class="line">git@guest.github.com:master/your_repo.git</div><div class="line"></div><div class="line"><span class="section"># guest</span></div><div class="line">git@guest.github.com:guest/your_repo.git</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="SSH测试"><a href="#SSH测试" class="headerlink" title="SSH测试"></a>SSH测试</h2><ul>
+<li><a href="https://help.github.com/articles/testing-your-ssh-connection/" target="_blank" rel="external">参考文档</a></li>
+</ul>
+<ol>
+<li><p>测试<code>master</code>账号与GitHub的SSH连接</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
+<p> 成功会得到下面提示信息:</p>
+ <figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hi &lt;username&gt;! You've successfully authenticated, but GitHub does not</div><div class="line">provide shell access.</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果成功，在GitHub的<code>Settings -&gt; SSH and GPG keys</code>里，相应的<code>SSH key</code>图标会变成绿色</p>
+</li>
+<li><p><code>guest</code>账号的配置同上</p>
+</li>
+</ol>
+<h2 id="Git项目配置"><a href="#Git项目配置" class="headerlink" title="Git项目配置"></a>Git项目配置</h2><ol>
+<li><p>在Git项目中，例如<code>master</code>，命令行输入:</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user.name <span class="string">"master"</span></div><div class="line">git config user.email <span class="string">"master"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>查看Git项目的配置</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --list</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改<code>git remote</code>:</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote rm origin</div><div class="line">git remote add origin git@github.com:master/your_repo.git</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果是<code>guest</code>，修改<code>git remote</code>:</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote rm origin</div><div class="line">git remote add origin git@guest.github.com:guest/your_repo.git</div></pre></td></tr></table></figure>
+</li>
+<li><p>具体情况根据<code>~/.ssh/config</code>的配置内容调整相应URL</p>
+</li>
+<li><p>完成后就可以愉快的<code>git pull</code>和<code>git push</code>了</p>
+</li>
+</ol>
+</div><!-- comment system--><div class="container"><hr><div id="disqus_thread"></div><script type="text/javascript">
+var disqus_shortname = 'https-windomz-github-io';
+var disqus_identifier = '2017/03/01/多git账号切换/';
+var disqus_title = '管理切换多个Git账号';
+var disqus_url = 'http://windomz.github.io/2017/03/01/多git账号切换/';
+(function() {
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:git.windomz@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/WindomZ" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Windom Z</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+e.src='//www.google-analytics.com/analytics.js';
+r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+ga('create','UA-101546872-1');ga('send','pageview');</script></html>

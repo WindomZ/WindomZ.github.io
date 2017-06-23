@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Python虚拟环境 | WindomZ`s GitHub Pages</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">WindomZ`s GitHub Pages</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about.html" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Python虚拟环境</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-03-15</div><div class="post-tags"><a class="post-tag-link" href="/tags/Linux/">Linux</a>/<a class="post-tag-link" href="/tags/Mac-OS-X/">Mac OS X</a>/<a class="post-tag-link" href="/tags/Python/">Python</a></div></div></div><article><div class="container post"><p>玩过Python的朋友，往往都会安装有几个发行版本，主流是<code>Python2.x</code>和<code>Python3.x</code>。<br>如何切换运行环境的版本往往很麻烦，但是通过<strong>virtualenv</strong>一切又很简单了！</p>
+<h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><p><a href="https://virtualenv.pypa.io/en/stable/installation/" target="_blank" rel="external">官方-英文</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>通过默认pip全局安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [sudo] pip install virtualenv</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>因为懒，所以这里建议安装 <strong>virtualenvwrapper</strong>。</p>
+<p><strong>virtualenvwrapper</strong> 是 <strong>virtualenv</strong> 的扩展管理包，<br>用于更方便管理虚拟环境。</p>
+<h2 id="virtualenvwrapper"><a href="#virtualenvwrapper" class="headerlink" title="virtualenvwrapper"></a>virtualenvwrapper</h2><h3 id="文档-1"><a href="#文档-1" class="headerlink" title="文档"></a>文档</h3><p><a href="https://virtualenvwrapper.readthedocs.io/en/stable/install.html" target="_blank" rel="external">官方-英文</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><ol>
+<li><p>通过默认pip全局安装</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [sudo] pip install virtualenvwrapper</div></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>~/.bashrc</code>中添加环境变量</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> WORKON_HOME=<span class="variable">$HOME</span>/.virtualenvs</div><div class="line"><span class="built_in">export</span> PROJECT_HOME=<span class="variable">$HOME</span>/Devel</div><div class="line"><span class="built_in">export</span> VIRTUALENVWRAPPER_SCRIPT=/usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</div><div class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper_lazy.sh</div></pre></td></tr></table></figure>
+</li>
+<li><p>编辑保存完后，运行<code>source ~/.bashrc</code>，使设置生效</p>
+</li>
+</ol>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><ol>
+<li><p>可使用<code>virtualenvwrapper --help</code>查看所有命令方法</p>
+</li>
+<li><p>但是常用就下面这几个</p>
+<ul>
+<li>创建环境：<code>mkvirtualenv</code> [环境名]</li>
+<li>删除环境：<code>rmvirtualenv</code> [环境名]</li>
+<li>激活环境：<code>workon</code> [环境名]</li>
+<li>退出环境：<code>deactivate</code></li>
+<li>所有环境：<code>workon</code> / <code>lsvirtualenv -b</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="事例"><a href="#事例" class="headerlink" title="事例"></a>事例</h3><ol>
+<li><p>例如当前环境安装有<code>Python2.7</code>和<code>Python3.5</code>，想自由切换<code>Python</code>运行环境</p>
+</li>
+<li><p>先设置好虚拟环境</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkvirtualenv -p /usr/bin/python2.7 env27 <span class="comment"># env27就是你设置的环境名</span></div><div class="line">mkvirtualenv -p /usr/bin/python3.5 env35 <span class="comment"># env35就是你设置的环境名</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>列出所有虚拟环境，可以得到下面信息</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ workon</div><div class="line">env27</div><div class="line">env35</div></pre></td></tr></table></figure>
+</li>
+<li><p>运行<code>workon env27</code>，就切换当前环境为<code>Python2.7</code></p>
+</li>
+<li><p>运行<code>workon env35</code>，就切换当前环境为<code>Python3.5</code></p>
+</li>
+</ol>
+</div><!-- comment system--><div class="container"><hr><div id="disqus_thread"></div><script type="text/javascript">
+var disqus_shortname = 'https-windomz-github-io';
+var disqus_identifier = '2017/03/15/python虚拟环境/';
+var disqus_title = 'Python虚拟环境';
+var disqus_url = 'http://windomz.github.io/2017/03/15/python虚拟环境/';
+(function() {
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:git.windomz@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/WindomZ" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Windom Z</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+e.src='//www.google-analytics.com/analytics.js';
+r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+ga('create','UA-101546872-1');ga('send','pageview');</script></html>

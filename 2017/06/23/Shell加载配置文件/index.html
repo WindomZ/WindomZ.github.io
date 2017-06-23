@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Shell加载配置文件 | WindomZ`s GitHub Pages</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">WindomZ`s GitHub Pages</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about.html" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Shell加载配置文件</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2017-06-23</div><div class="post-tags"><a class="post-tag-link" href="/tags/Bash/">Bash</a>/<a class="post-tag-link" href="/tags/Linux/">Linux</a>/<a class="post-tag-link" href="/tags/Shell/">Shell</a></div></div></div><article><div class="container post"><p>在执行Shell命令时候，如何加载配置文件</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>需把配置文件加载到环境变量(非全局)。</p>
+<p>配置文件格式一般为<code>key=value</code>这种格式，<br>与<code>Shell</code>中的变量赋值相似，<br>如果在前面加上关键字<code>export</code>就可以声明为当前<code>Shell</code>的环境变量(非全局)</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>假设一个配置文件<code>.env</code>，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Date=2009-01-03</div><div class="line">Time=18:15:05</div></pre></td></tr></table></figure></p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><blockquote>
+<p>利用<code>sed</code>解析文本</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">date=`sed <span class="string">'/^Date=/!d;s/.*=//'</span> .env`</div><div class="line">time=`sed <span class="string">'/^Time=/!d;s/.*=//'</span> .env`</div><div class="line"><span class="built_in">echo</span> <span class="variable">$date</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$time</span></div></pre></td></tr></table></figure>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><blockquote>
+<p>利用<code>eval</code>方法解析</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> <span class="built_in">read</span> line;<span class="keyword">do</span></div><div class="line">    <span class="built_in">eval</span> <span class="string">"<span class="variable">$line</span>"</span></div><div class="line"><span class="keyword">done</span> &lt; .env</div><div class="line"><span class="built_in">echo</span> <span class="variable">$Date</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$Time</span></div></pre></td></tr></table></figure>
+<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><blockquote>
+<p>利用<code>session</code>方法加载解析</p>
+</blockquote>
+<p>打开终端<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .env</div></pre></td></tr></table></figure></p>
+<p>然后<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="variable">$Date</span></div><div class="line"><span class="built_in">echo</span> <span class="variable">$Time</span></div></pre></td></tr></table></figure></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><em>方法一</em>和<em>方法二</em>可以在<code>Bash</code>脚本中运行，<em>方法三</em>只能在终端运行。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/binbinjx/p/5680214.html" target="_blank" rel="external">cnblogs</a></p>
+</div><!-- comment system--><div class="container"><hr><div id="disqus_thread"></div><script type="text/javascript">
+var disqus_shortname = 'https-windomz-github-io';
+var disqus_identifier = '2017/06/23/Shell加载配置文件/';
+var disqus_title = 'Shell加载配置文件';
+var disqus_url = 'http://windomz.github.io/2017/06/23/Shell加载配置文件/';
+(function() {
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:git.windomz@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/WindomZ" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Windom Z</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+e.src='//www.google-analytics.com/analytics.js';
+r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+ga('create','UA-101546872-1');ga('send','pageview');</script></html>
