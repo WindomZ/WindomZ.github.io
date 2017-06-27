@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://windomz.github.io/"/>
-  <updated>2017-06-27T14:49:21.920Z</updated>
+  <updated>2017-06-27T15:08:45.264Z</updated>
   <id>http://windomz.github.io/</id>
   
   <author>
@@ -16,11 +16,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Shell脚本的提示输入</title>
+    <link href="http://windomz.github.io/2017/06/27/Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E6%8F%90%E7%A4%BA%E8%BE%93%E5%85%A5/"/>
+    <id>http://windomz.github.io/2017/06/27/Shell脚本的提示输入/</id>
+    <published>2017-06-27T13:38:04.000Z</published>
+    <updated>2017-06-27T15:08:45.264Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们经常在shell脚本中会涉及交互输入，这里列举了一些&lt;code&gt;read&lt;/code&gt;的常用脚本方便扩展。&lt;/p&gt;
+&lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;关于&lt;code
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://windomz.github.io/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://windomz.github.io/tags/Shell/"/>
+    
+      <category term="Bash" scheme="http://windomz.github.io/tags/Bash/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Shell的read指令</title>
     <link href="http://windomz.github.io/2017/06/27/Shell%E7%9A%84read%E6%8C%87%E4%BB%A4/"/>
     <id>http://windomz.github.io/2017/06/27/Shell的read指令/</id>
     <published>2017-06-27T12:18:14.000Z</published>
-    <updated>2017-06-27T14:49:21.920Z</updated>
+    <updated>2017-06-27T15:03:12.814Z</updated>
     
     <summary type="html">
     
