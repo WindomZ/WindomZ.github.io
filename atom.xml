@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://windomz.github.io/"/>
-  <updated>2017-06-23T16:14:49.963Z</updated>
+  <updated>2017-06-27T14:49:21.920Z</updated>
   <id>http://windomz.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Shell的read指令</title>
+    <link href="http://windomz.github.io/2017/06/27/Shell%E7%9A%84read%E6%8C%87%E4%BB%A4/"/>
+    <id>http://windomz.github.io/2017/06/27/Shell的read指令/</id>
+    <published>2017-06-27T12:18:14.000Z</published>
+    <updated>2017-06-27T14:49:21.920Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们经常在脚本中会涉及交互输入，&lt;code&gt;read&lt;/code&gt;则是最常用的命令，并且shell基本都能支持。&lt;/p&gt;
+&lt;p&gt;不过不同版本会有差异，比较常用的是&lt;code&gt;-t&lt;/code&gt;等待时间，&lt;code&gt;-p&lt;/code&gt;提示语句，&lt;code&gt;-s&lt;/code&gt;隐
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://windomz.github.io/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://windomz.github.io/tags/Shell/"/>
+    
+      <category term="Bash" scheme="http://windomz.github.io/tags/Bash/"/>
+    
+  </entry>
   
   <entry>
     <title>Shell加载配置文件</title>
